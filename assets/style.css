@@ -1,0 +1,43 @@
+/* While not strictly necessary, setting up CSS root variables has proven to be very
+useful. */
+:root {
+    /* color for score link */
+    --linkColor: #843ead;
+    /* color for answer button background */
+    --buttonColor: #5e2777;
+    /* color for text on answer buttons */
+    --buttonTextColor: #fff;
+    /* color for the text commentary that appears after a question is answered */
+    --commentaryColor: #7a7a7a;
+    /* color for all other text */
+    --regularTextColor: #000000;
+
+}
+
+body {
+    color: var(--regularTextColor);
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    /* Not actually sure as to the text in the example, so I'm guessing. */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Going to have to tweak this one.  Setup for the navigation box which contains
+both the score link and the time remaining. */
+nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    color: var(--regularTextColor);
+}
+
+/* CSS for the score link */
+nav .scoreLink {
+    color: var(--linkColor);
+}
+
+/* CSS for the time remaining */
+nav .timeDisplay {
+    color: var(--regularTextColor);
+}
