@@ -68,20 +68,74 @@ function generateQuestionArray (){
     var correct3 = 0;
     var correct4 = 1;
     var correct5 = 3;
-    // LEFT OFF HERE; REMEMBER TO CREATE QUESTION OBJECTS, STORE IN ARRAY, THEN RETURN THE ARRAY
+    
+    // Array object to be returned when the function is called
 
+    var tempQuestArray = []; //create temporary array; not populated here because this could eventually be set up to pull from a storage document
+
+    tempQuestArray.push(new Question(quest1, ansArray1, correct1)); // create new question object with initial fields and push into the array
+    tempQuestArray.push(new Question(quest2, ansArray2, correct2)); // create new question object with initial fields and push into the array
+    tempQuestArray.push(new Question(quest3, ansArray3, correct3)); // create new question object with initial fields and push into the array
+    tempQuestArray.push(new Question(quest4, ansArray4, correct4)); // create new question object with initial fields and push into the array
+    tempQuestArray.push(new Question(quest5, ansArray5, correct5)); // create new question object with initial fields and push into the array
+
+    return tempQuestArray; //return filled array to the function call
 
 }
 
-/* Need function to sort scores. */
+/* Need function to sort scores.  It has been years since I saw a sorting algorithm/code.  The following code has been borrowed from
+https://flexiple.com/javascript/bubble-sort-javascript .  Function returns an array. */
+function scoreSort(inputArr){
+    
+    let len = inputArr.length;
+    let checked;
+    do {
+        checked = false;
+        for (let i = 0; i < len; i++) {
+            if (inputArr[i].scoreNum() > inputArr[i + 1].scoreNum) { // altered to fit our program; comparing the two scores of two different objects.
+                let tmp = inputArr[i];
+                inputArr[i] = inputArr[i + 1];
+                inputArr[i + 1] = tmp;
+                checked = true;
+            }
+        }
+    } while (checked);
+    return inputArr;
+}
 
-/* Need function to write scores to local storage. */
+/* Need function to write scores to local storage.  My implementation is a bit more complex than what was covered
+in class, so I referenced https://stackoverflow.com/questions/13702100/localstorage-array-of-objects-handling 
+for assistance. */
 
-/* Need function to retrieve scores from local storage. */
+function writeToStorage(scoresArray){
+
+    for (var x = 0; x < scoresArray.length; x++){
+        localStorage.setItem("scores", JSON.stringify(scoresArray[x])); /* Please let this work; trying to send each entry into local
+        storage using a for-loop to iterate over the array that was passed to the function. */
+    }
+
+}
+
+/* Need function to retrieve scores from local storage. This function will return an array.  
+https://stackoverflow.com/questions/13702100/localstorage-array-of-objects-handling was referenced for assistance. */
+function pullFromStorage(){
+    var tempArray = [];
+    let tempArray = JSON.parse(localStorage.getItem("scores"));
+
+    if(tempArray !== null){
+        highScoresArray = tempArray;
+    }
+
+}
 
 /* Need function for the timer. */
 
 /*  Need function to display questions. */
+function questionDisplay(){
+    let questionArray = generateQuestionArray();
+
+    
+}
 
 /*  Need function to determine win/loss. */
 
