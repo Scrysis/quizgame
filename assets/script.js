@@ -3,7 +3,8 @@ var timeElement = document.querySelector(".scoreTime"); // retrieve the scoreTim
 var questionElement = document.querySelector(".questionSection"); // for the question display section
 var scoreCard = document.querySelector(".scoreSection"); // Scorepage after the game
 
-
+// Going to iterate over the question array outside of the function
+var questionIteration = 0;
 /* Need high score array. */
 var highScoresArray = [];
 /* Need a question object array to store all of the questions. */
@@ -91,9 +92,7 @@ function generateQuestionArray (){
     var ansArray3 = [new Answer("index.html", true), new Answer("style.css", false), new Answer("default.vrm", false), new Answer("hello.txt", false)];
     var ansArray4 = [new Answer("Text", false), new Answer("Javascript", true), new Answer("Batch", false), new Answer("Jumpsecret", false)];
     var ansArray5 = [new Answer("Cats", false), new Answer("Dogs", false), new Answer("Iguanas", false), new Answer("Coffee Fiends", true)];
-
-    
-    
+  
     // Array object to be returned when the function is called
 
     var tempQuestArray = []; //create temporary array; not populated here because this could eventually be set up to pull from a storage document
@@ -173,30 +172,35 @@ function timer(modNum){
 
 }
 
-/*  Need function to display questions.  Function needs to display questions one at a time while iterating over
-all of them. and not iterating until the user makes a selection. */
-function questionDisplay(){
-    questionArray = generateQuestionArray();
-    var numQuestions = questionArray.length; /* retrieve length of the question array; this is how we're going 
-    to iterate over all of the questions, regardless if we decide to add more questions later.*/
+/*  Need function to display questions.  Just display a question, but not iterate over the question array.*/
+function questionDisplay() {
+    questionArray = generateQuestionArray(); // generate the question array; MAYBE PUT THIS LINE ELSEWHERE RIGHT BEFORE FUNCTION CALL
+       
+    questionElement.innerHTML = ""; // clear previous question
 
-    while(numQuestions >= 0){
-        numQuestions--; /* We're going to use numQuestions to both access the question array and iterate over it;
-        we have to deincrement before we access the array because you cannot access an array index that does not
-        exist. */
-        questionElement.innerHTML = ""; // clear previous question
+    var questionText = document.createElement("h1"); // create new heading for the question
+    questionText.textContent = questionArray[numQuestions].quesText(); /*  Get the question text and set it
+        to the newly created header element. */
 
-        var questionText = document.createElement("h1"); // create new heading for the question
-        questionText.textContent = questionArray[numQuestions].quesText(); // get the question text
+    var dispAnsArray = questionArray[numQuestions].answerArray();/* Retrieve and store the answer array in
+        a temporary variable. */
+    var buttonList = document.createElement("ol"); //create ordered list for the buttons
 
-        var dispAnsArray = questionArray[numQuestions].answerArray();/* Retrieve and store the answer array in
-        a temporary variable. */ 
-        /* Updated: the variable  */
-        for(var x = 0; x < dispAnsArray.length; x++){
+    questionElement.appendChild(questionText); //append the question text
+    questionElement.appendChild(buttonList); // append the answer list container
 
-        }
+    /* Updated: the indicator of correct/incorrect answer status is no longer a separate value; in order to avoid
+    potential bugs, the array now stores answer objects */
+    for (var x = 0; x < dispAnsArray.length; x++) {
+        var button = document.createElement("button"); // create new button
+        button.textContent = dispAnsArray[x].ansText(); //set the button text to the answer text out of the array
+        button.setAttribute("data-index", x); // going to assign buttons numbers to reference the clicks
+        buttonList.appendChild(button);// adding the button to the list; FIX LATER -- DOES NOT ADD TO LIST, NEED LIST ELEMENTS
+        // CAN I REMOVE LIST AND JUST PUT OUT BUTTONS?
+        // STOPPED HERE
     }
-    
+
+
 }
 
 /*  Need function to determine win/loss. */

@@ -21,6 +21,7 @@ body {
     flex-wrap: wrap;
     /* Not actually sure as to the text in the example, so I'm guessing. */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
 
 /* Going to have to tweak this one.  Setup for the navigation box which contains
@@ -32,12 +33,40 @@ nav {
     color: var(--regularTextColor);
 }
 
+ol{
+    list-style-type: none;
+    padding: 0;
+    background-color: white;
+}
+
 /* CSS for the score link */
 nav .scoreLink {
     color: var(--linkColor);
+    font-size: 2em;
 }
 
 /* CSS for the time remaining */
 nav .timeDisplay {
     color: var(--regularTextColor);
+    font-size: 2em;
+}
+
+/* CSS for the question text */
+.questionSection h1{
+    color: var(--regularTextColor);
+    font-size: 2em;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Creating display properties for generated buttons */
+li button{
+    border: 3px;
+    border-color: var(--commentaryColor);
+    height: 50px;
+    cursor: pointer;
+    background-color: var(--buttonColor);
+    color: var(--buttonTextColor);
+    font-size: 1.5em;
+
 }
